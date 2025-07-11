@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json.schemastore.org/dotnetcli.host",
+  "symbolInfo": {
+    "ApplicationInsights": {
+      "longName": "app-insights"
+    },
+    "ApplicationInsightsKey": {
+      "longName": "app-insights-key"
+    },
+    "Splunk": {
+      "longName": "splunk"
+    },
+    "SplunkHostUrl": {
+      "longName": "splunk-host-url"
+    },
+    "SplunkEventCollectorToken": {
+      "longName": "splunk-token"
+    },
+    "CORS": {
+      "longName": "cors"
+    },
+    "ResponseCaching": {
+      "longName": "response-caching"
+    },
+    "DistributedCache": {
+      "longName": "distributed-cache"
+    },
+    "XmlFormatter": {
+      "longName": "xml-formatter"
+    },
+    "HttpPort": {
+      "longName": "http-port"
+    },
+    "HttpsPort": {
+      "longName": "https-port"
+    },
+    "IISExpressHttpsPort": {
+      "longName": "iis-express-https-port"
+    },
+    "Docker": {
+      "longName": "docker"
+    },
+    "SQLServer": {
+      "longName": "sqlserver"
+    },
+    "DatabaseConnectionString": {
+      "longName": "database-connection-string"
+    }
+  }
+}

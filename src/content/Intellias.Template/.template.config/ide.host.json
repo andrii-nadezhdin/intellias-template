@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json.schemastore.org/vs-2017.3.host",
+  "order": 0,
+  "icon": "icon.png",
+  "symbolInfo": [
+    {
+      "id": "ApplicationInsights",
+      "name": {
+        "text": "Application Insights"
+      },
+      "isVisible": true
+    },
+    {
+      "id": "ApplicationInsightsKey",
+      "name": {
+        "text": "Application Insights Key"
+      },
+      "isVisible": true
+    },
+    {
+      "id": "Splunk",
+      "name": {
+        "text": "Splunk"
+      },
+      "isVisible": true
+    },
+    {
+      "id": "SplunkHostUrl",
+      "name": {
+        "text": "Splunk Host URL"
+      },
+      "isVisible": true
+    },
+    {
+      "id": "SplunkEventCollectorToken",
+      "name": {
+        "text": "Splunk Event Collector Token"
+      },
+      "isVisible": true
+    },
+    {
+      "id": "CORS",
+      "isVisible": true
+    },
+    {
+      "id": "ResponseCaching",
+      "name": {
+        "text": "Response Caching"
+      },
+      "isVisible": true
+    },
+    {
+      "id": "DistributedCache",
+      "name": {
+        "text": "Distributed Cache"
+      },
+      "isVisible": true
+    },
+    {
+      "id": "Docker",
+      "isVisible": true
+    },
+    {
+      "id": "SQLServer",
+      "name": {
+        "text": "SQL Server"
+      },
+      "isVisible": true
+    },
+    {
+      "id": "DatabaseConnectionString",
+      "name": {
+        "text": "Database connection string"
+      },
+      "isVisible": "true"
+    }
+  ]
+}

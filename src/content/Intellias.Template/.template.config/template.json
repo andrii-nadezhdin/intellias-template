@@ -1,0 +1,391 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Intellias",
+  "classifications": [
+    "Intellias",
+    "Service",
+    "WebAPI",
+    "API"
+  ],
+  "name": "Intellias.Template.Api.Core",
+  "description": "",
+  "groupIdentity": "Intellias.Templates.Api.Core",
+  "identity": "Intellias.Template.Api.CSharp",
+  "shortName": "intellias-api",
+  "defaultName": "Intellias.Application1",
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  },
+  "sourceName": "Intellias.Template",
+  "preferNameDirectory": true,
+  "guids": [
+    "39985C69-BEC0-46CF-AA76-0E0930CF32CF",
+    "1E3FF70A-88A3-4E7A-935A-BB04DB6A7261",
+    "F2517775-E6EA-4420-A7BC-AA026A41A556",
+    "E3B6D498-8A27-4247-8B8A-D0699AE4A99D",
+    "E3E59DAC-4CE9-4682-BFB1-8F4D7AC20D95",
+    "DCC31119-8A1D-4319-AED4-8D1CCABCC009"
+  ],
+  "primaryOutputs": [
+    { "path": "Intellias.Template.sln" }
+  ],
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(!Redis)",
+          "exclude": [
+            "src/Intellias.Template.Api/Options/RedisOptions.cs"
+          ]
+        },
+        {
+          "condition": "(!IIS)",
+          "exclude": [
+            "src/Intellias.Template.Api/web.config"
+          ]
+        },
+        {
+          "condition": "(!CORS)",
+          "exclude": [
+            "src/Intellias.Template.Api/Constants/CorsPolicyName.cs"
+          ]
+        },
+        {
+          "condition": "(!Docker)",
+          "exclude": [
+            "src/Intellias.Template.Api/Dockerfile",
+            ".dockerignore"
+          ]
+        },
+        {
+          "condition": "(!SQLServer)",
+          "exclude": [
+            "src/Intellias.Template.Infrastructure.Persistence/Extensions/ModelBuilderExtension.cs",
+            "src/Intellias.Template.Infrastructure.Persistence/Options/SQLServerOptions.cs",
+            "src/Intellias.Template.Infrastructure.Persistence/Contexts"
+          ]
+        }
+      ]
+    }
+  ],
+  "symbols": {
+    "EditMode": {
+      "type": "generated",
+      "generator": "constant",
+      "parameters": {
+        "value": "false"
+      }
+    },
+    "ApplicationInsights": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Monitor internal information about how your application is running, as well as external user information using the Microsoft Azure cloud."
+    },
+    "ApplicationInsightsKey": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "11111111-2222-3333-4444-555555555555",
+      "replaces": "APPLICATION-INSIGHTS-INSTRUMENTATION-KEY",
+      "description": "Your Application Insights instrumentation key e.g. 11111111-2222-3333-4444-555555555555."
+    },
+    "Splunk": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Investigate, monitor, analyze and act on your data with ease for enhanced security and operational efficiency using Splunk."
+    },
+    "SplunkHostUrl": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "http://127.0.0.1:8088/services/collector/event",
+      "replaces": "SPLUNK-HOST-URL",
+      "description": "URL of Splunk event collector. May be found in Settings -> Data Inputs -> HTTP Event Collector"
+    },
+    "SplunkEventCollectorToken": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "11111111-2222-3333-4444-555555555555",
+      "replaces": "SPLUNK-EVENT-COLLECTOR-TOKEN",
+      "description": "Token of Splunk event collector. May be found in Settings -> Data Inputs -> HTTP Event Collector"
+    },
+    "CORS": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "Browser security prevents a web page from making AJAX requests to another domain."
+    },
+    "ResponseCaching": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "Response caching is allows the use of the [ResponseCache] attribute on your action methods. Cache settings (cache profiles) are stored in the configuration file and referred to by name."
+    },
+    "DistributedCache": {
+      "type": "parameter",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "Redis",
+          "description": "Adds a Redis implementation for IDistributedCache."
+        },
+        {
+          "choice": "InMemory",
+          "description": "Adds an in-memory implementation for IDistributedCache."
+        },
+        {
+          "choice": "None",
+          "description": "No distributed cache added."
+        }
+      ],
+      "defaultValue": "None",
+      "description": "Adds distributed caching."
+    },
+    "DistributedCacheRedis": {
+      "type": "computed",
+      "value": "(DistributedCache == \"Redis\")"
+    },
+    "DistributedCacheInMemory": {
+      "type": "computed",
+      "value": "(DistributedCache == \"InMemory\")"
+    },
+    "DistributedCacheNone": {
+      "type": "computed",
+      "value": "(DistributedCache == \"None\")"
+    },
+    "Redis": {
+      "type": "computed",
+      "value": "(DistributedCacheRedis)"
+    },
+    "Docker": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "Adds an optimised Dockerfile to add the ability build a Docker image.",
+      "defaultValue": "true"
+    },
+    "IIS": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "Adds IIS support for application.",
+      "defaultValue": "true"
+    },
+    "SQLServer": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "Adds SQL Server support with EntityFrameworkCore for application.",
+      "defaultValue": "true"
+    },
+    "DatabaseConnectionString": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "Server=(localdb)\\\\MSSQLLocalDB;Database=SystemApi;Trusted_Connection=True;MultipleActiveResultSets=true",
+      "replaces": "DATABASE-CONNECTION-STRING",
+      "description": "Connection string for the database."
+    },
+    "HttpPort": {
+      "type": "parameter",
+      "datatype": "integer",
+      "description": "Port number to use for the Kestrel HTTP endpoint in launchSettings.json.",
+      "defaultValue": "5000"
+    },
+    "HttpPortConstant": {
+      "type": "generated",
+      "generator": "constant",
+      "parameters": {
+        "value": "5000"
+      }
+    },
+    "HttpPortReplacer": {
+      "type": "generated",
+      "generator": "coalesce",
+      "parameters": {
+        "sourceVariableName": "HttpPort",
+        "fallbackVariableName": "HttpPortConstant"
+      },
+      "replaces": "5000"
+    },
+    "HttpsPort": {
+      "type": "parameter",
+      "datatype": "integer",
+      "description": "Port number to use for the Kestrel HTTPS endpoint in launchSettings.json.",
+      "defaultValue": "5001"
+    },
+    "HttpsPortConstant": {
+      "type": "generated",
+      "generator": "constant",
+      "parameters": {
+        "value": "5001"
+      }
+    },
+    "HttpsPortReplacer": {
+      "type": "generated",
+      "generator": "coalesce",
+      "parameters": {
+        "sourceVariableName": "HttpsPort",
+        "fallbackVariableName": "HttpsPortConstant"
+      },
+      "replaces": "5001"
+    },
+    "IISExpressHttpsPort": {
+      "type": "parameter",
+      "datatype": "integer",
+      "description": "Port number to use for the IIS Express HTTPS endpoint in launchSettings.json (Must be between 44300 and 44399).",
+      "defaultValue": "44300"
+    },
+    "IISExpressHttpsPortConstant": {
+      "type": "generated",
+      "generator": "constant",
+      "parameters": {
+        "value": "44300"
+      }
+    },
+    "IISExpressHttpsPortReplacer": {
+      "type": "generated",
+      "generator": "coalesce",
+      "parameters": {
+        "sourceVariableName": "IISExpressHttpsPort",
+        "fallbackVariableName": "IISExpressHttpsPortConstant"
+      },
+      "replaces": "44300"
+    }
+  },
+  "SpecialCustomOperations": {
+    "**/*.md": {
+      "operations": [
+        {
+          "type": "conditional",
+          "configuration": {
+            "actionableIf": [ "<!--#if" ],
+            "actionableElse": [ "#else", "<!--#else" ],
+            "actionableElseif": [ "#elif", "<!--#elif", "#elif", "<!--#elif" ],
+            "endif": [ "#endif", "<!--#endif" ],
+            "trim": "true",
+            "wholeLine": "true",
+            "actions": [ "fixPseudoNestedComments" ]
+          }
+        },
+        {
+          "type": "balancednesting",
+          "configuration": {
+            "id": "fixPseudoNestedComments",
+            "startToken": "<!--",
+            "realEndToken": "-->",
+            "pseudoEndToken": "-- >",
+            "resetFlag": "_TestResetFlag_"
+          }
+        }
+      ]
+    },
+    "**/.editorconfig": {
+      "operations": [
+        {
+          "type": "conditional",
+          "configuration": {
+            "if": [ "#if" ],
+            "else": [ "#else" ],
+            "elseif": [ "#elif" ],
+            "endif": [ "#endif" ],
+            "actionableIf": [ "##if" ],
+            "actionableElse": [ "##else" ],
+            "actionableElseif": [ "##elif" ],
+            "actions": [ "uncomment", "reduceComment" ],
+            "trim": "true",
+            "wholeLine": "true",
+            "evaluator": "C++"
+          }
+        },
+        {
+          "type": "replacement",
+          "configuration": {
+            "original": "#",
+            "replacement": "",
+            "id": "uncomment"
+          }
+        },
+        {
+          "type": "replacement",
+          "configuration": {
+            "original": "##",
+            "replacement": "#",
+            "id": "reduceComment"
+          }
+        }
+      ]
+    },
+    "**/Dockerfile": {
+      "operations": [
+        {
+          "type": "conditional",
+          "configuration": {
+            "if": [ "#if" ],
+            "else": [ "#else" ],
+            "elseif": [ "#elif" ],
+            "endif": [ "#endif" ],
+            "actionableIf": [ "##if" ],
+            "actionableElse": [ "##else" ],
+            "actionableElseif": [ "##elif" ],
+            "actions": [ "uncomment", "reduceComment" ],
+            "trim": "true",
+            "wholeLine": "true",
+            "evaluator": "C++"
+          }
+        },
+        {
+          "type": "replacement",
+          "configuration": {
+            "original": "#",
+            "replacement": "",
+            "id": "uncomment"
+          }
+        },
+        {
+          "type": "replacement",
+          "configuration": {
+            "original": "##",
+            "replacement": "#",
+            "id": "reduceComment"
+          }
+        }
+      ]
+    },
+    "**/*.yml": {
+      "operations": [
+        {
+          "type": "conditional",
+          "configuration": {
+            "if": [ "#if" ],
+            "else": [ "#else" ],
+            "elseif": [ "#elif" ],
+            "endif": [ "#endif" ],
+            "actionableIf": [ "##if" ],
+            "actionableElse": [ "##else" ],
+            "actionableElseif": [ "##elif" ],
+            "actions": [ "uncomment", "reduceComment" ],
+            "trim": "true",
+            "wholeLine": "true",
+            "evaluator": "C++"
+          }
+        },
+        {
+          "type": "replacement",
+          "configuration": {
+            "original": "#",
+            "replacement": "",
+            "id": "uncomment"
+          }
+        },
+        {
+          "type": "replacement",
+          "configuration": {
+            "original": "##",
+            "replacement": "#",
+            "id": "reduceComment"
+          }
+        }
+      ]
+    }
+  },
+  "postActions": [
+  ]
+}
